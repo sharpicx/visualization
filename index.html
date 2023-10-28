@@ -194,7 +194,7 @@
 				"Friendly3",
 				"Observer",
 			];
-      retasMachines = ["RetasLabs", "GatotKaca", "Zombie", "Anonymousz", "Newb"];
+      retasMachines = ["RetasLabs", "Gatot Kaca", "Zombie", "Anonymousz", "Newb"];
       var nodes = [];
       var edges = [];
 
@@ -257,7 +257,7 @@
         edges.push({ from: b, to: mediumIndex });
       }
       edges.push({ from: easyIndex, to: hackmyvmIndex }); // easy to hackmyvm
-      for (let c = easyIndex + 1; c <= combinedArray.length - 1; c++) { // loop for all of the easy nodes into the last of combined array, btw it cab be indexed by forEach(), indexOf(), slice(), find(), filter() method.
+      for (let c = easyIndex + 1; c <= combinedArray.length - 1; c++) { // loop for all of the easy nodes into the last of combined array, btw it can be indexed by forEach(), indexOf(), slice(), find(), filter() method.
         edges.push({ from: c, to: easyIndex });
       }
       const combineda = htrMachines.concat(hmvMachines, scriptLanguage);
