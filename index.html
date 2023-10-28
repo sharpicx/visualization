@@ -194,6 +194,7 @@
 				"Friendly3",
 				"Observer",
 			];
+      retasMachines = ["RetasLabs", "GatotKaca", "Zombie", "Anonymousz", "Newb"];
       var nodes = [];
       var edges = [];
 
@@ -236,6 +237,11 @@
       scriptLanguage.forEach((label, index) => {
         nodes.push({ id: (htrMachines.length + hmvMachines.length) + index, label, group });
       });
+      
+      group = 4;
+      retasMachines.forEach((label, index) => {
+        nodes.push({ id: (htrMachines.length + hmvMachines.length + scriptLanguage.length ) + index, label, group });
+      });
 
       const combinedArray = htrMachines.concat(hmvMachines);
       const hackmyvmIndex = combinedArray.indexOf("HackMyVM");
@@ -258,6 +264,11 @@
       const scriptIndex = combineda.indexOf("Programming");
       for (let d = scriptIndex + 1; d <= combineda.length - 1; d++) {
         edges.push({ from: d, to: scriptIndex });
+      }
+      const combineb = htrMachines.concat(hmvMachines, scriptLanguage, retasMachines);
+      const retasIndex = combineb.indexOf("RetasLabs");
+      for (let e = retasIndex + 1; e <= combineb.length - 1; e++) {
+        edges.push({ from: e, to: retasIndex });
       }
 
       var container = document.getElementById("mynetwork");
