@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>sharpicx | checklist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/44630640">
+
+    <style>
+      body {
+        color: #d3d3d3;
+        font: 12pt arial;
+        background-color: #000;
+        font-style: bold;
+      }
+
+      #mynetwork {
+       position: absolute;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <div id="mynetwork"></div>
+    <script type="text/javascript">
+      var color = "gray";
+      var len = undefined;
+      
+      htrMachines = ["Hacktrace Ranges", "Developed", "Atulieer", "River", "Guesser", "TraverseMode", "Bro", "Terra", "FareTheWell", "DNS1", "DNS2", "Toolbox", "Previest", "Minerva", "Ariadne", "CornFlix", "Autobot", "Exodus", "Multishop", "Fenrir", "Ares", "Galz", "Fos", "Rambo", "Zeus", "NoobSysAdmins", "Vulcan", "LoL", "Juno"];
+      hmvMachines = [
+        "HackMyVM",
+        "Hard",
+        "SuidyRevenge",
+        "UnbakedPie",
+        "Random",
+        "Pickle",
+        "Hacked",
+        "Soul",
+        "Titan",
+        "Dance",
+        "Ephemeral",
+        "Kitty",
+        "Juggling",
+        "Fianso",
+        "Printer",
+        "Hell",
+        "Omura",
+        "Alive",
+        "Registry",
+        "Medium",
+        "suidy",
+        "Learn2Code",
+        "Five",
+        "Forbidden",
+        "Listen",
+        "Troya",
+        "Icarus",
+        "Rubies",
+        "Light",
+        "Narcos",
+        "Winter",
+        "Devguru",
+        "Tornado",
+        "Number",
+        "Momentum",
+        "Chronos",
+        "Tranquil",
+        "Texte",
+        "Taurus",
+        "Confusion",
+        "Family2",
+        "Condor",
+        "Govermment",
+        "Versteckt",
+        "Area51",
+        "Messages",
+        "Corrosion3",
+        "Fate",
+        "Pingme",
+        "Aqua",
+        "Tajer",
+        "Ephemeral2",
+        "Murph",
+        "Away",
+        "Pam",
+        "Discover",
+        "Movie",
+        "Bounty",
+        "Family3",
+        "Tagged",
+        "Anaximandre",
+        "Cachalot",
+        "Oldschool",
+        "Opacity",
+        "Catland",
+        "Colors",
+        "Comet",
+        "Printer2",
+        "Democracy",
+        "Factorspace",
+        "Influencer",
+        "Casino",
+        "Stardust",
+        "Logan",
+        "Principle",
+        "Inkplot",
+        "Easy",
+        "Gift",
+				"Pwned",
+				"Connection",
+				"BaseME",
+				"Hommie",
+				"Alzheimer",
+				"Twisted",
+				"Vulny",
+				"Helium",
+				"Flower",
+				"Webmaster",
+				"Driftingblues3",
+				"Locker",
+				"Insomnia",
+				"Gigachad",
+				"Talk",
+				"Driftingblues5",
+				"Crossroads",
+				"Driftingblues6",
+				"Superhuman",
+				"Faust",
+				"T800",
+				"Visions",
+				"Driftingblues8",
+				"Tron",
+				"Driftingblues9",
+				"Hidden",
+				"Ripper",
+				"Beloved",
+				"Noob",
+				"Hundred",
+				"Bah",
+				"Doc",
+				"Warez",
+				"Doubletrouble",
+				"Drippingblues",
+				"Stars",
+				"Breakout",
+				"Method",
+				"Isengard",
+				"Comingsoon",
+				"Preload",
+				"University",
+				"Warrior",
+				"Hotel",
+				"System",
+				"Djinn",
+				"Decode",
+				"Hostname",
+				"Translator",
+				"Find",
+				"Dejavu",
+				"Ephemeral3",
+				"Art",
+				"First",
+				"Teacher",
+				"TheWall",
+				"Crazymed",
+				"Blackhat",
+				"WMessage",
+				"Cve1",
+				"Hannah",
+				"Arroutada",
+				"Medusa",
+				"Luz",
+				"Uvalde",
+				"W140",
+				"Friendly",
+				"Bruteforcelab",
+				"Literal",
+				"Doll",
+				"Aurora",
+				"Friendly2",
+				"NightCity",
+				"Crack",
+				"Oliva",
+				"Apaches",
+				"Friendly3",
+				"Observer",
+			];
+      var nodes = [];
+      var edges = [];
+
+      let group = 0;
+      let groupCounter = 1;
+      
+      const totalHTR = htrMachines.length - 1;
+      for (let i = 1; i <= totalHTR; i++) {
+        edges.push({ from: i, to: 0 });
+      }
+
+      htrMachines.forEach((label, index) => {
+        nodes.push({ id: index, label, group, color: { background: "#00a2e9", border: "#c1c1c1" } });
+        if (label.toLowerCase() === "hacktrace ranges") {
+          group = groupCounter;
+        }
+        groupCounter++;
+      });
+
+      group = 2; // Group untuk "HackMyVM"
+      let lastGroup = 2; // Group yang digunakan untuk nilai-nilai selanjutnya dalam hmvMachines
+        
+      hmvMachines.forEach((label, index) => {
+        if (label.toLowerCase() === "hackmyvm") {
+          group = 2;
+        } else if (label.toLowerCase() === "hard") {
+          group = 2;
+        } else if (label.toLowerCase() === "medium") {
+          group = 2;
+        } else if (label.toLowerCase() === "easy") {
+          group = 2;
+        }
+        nodes.push({ id: htrMachines.length + index, label, group });
+        group = lastGroup;
+      });
+
+      group = 3;
+
+      scriptLanguage = ["Programming", "Shell / Bash", "Python", "NodeJS"];
+      scriptLanguage.forEach((label, index) => {
+        nodes.push({ id: (htrMachines.length + hmvMachines.length) + index, label, group });
+      });
+
+      const combinedArray = htrMachines.concat(hmvMachines);
+      const hackmyvmIndex = combinedArray.indexOf("HackMyVM");
+      const hardIndex = combinedArray.indexOf("Hard");
+      const mediumIndex = combinedArray.indexOf("Medium");
+      const easyIndex = combinedArray.indexOf("Easy");
+      edges.push({ from: hardIndex, to: hackmyvmIndex }); // hard to hackmyvm
+      for (let a = hardIndex + 1; a <= mediumIndex - 1; a++) {
+        edges.push({ from: a, to: hardIndex });
+      }
+      edges.push({ from: mediumIndex, to: hackmyvmIndex }); // medium to hackmyvm
+      for (let b = mediumIndex + 1; b <= easyIndex - 1; b++) {
+        edges.push({ from: b, to: mediumIndex });
+      }
+      edges.push({ from: easyIndex, to: hackmyvmIndex }); // easy to hackmyvm
+      for (let c = easyIndex + 1; c <= combinedArray.length - 1; c++) { // loop for all of the easy nodes into the last of combined array, btw it cab be indexed by forEach(), indexOf(), slice(), find(), filter() method.
+        edges.push({ from: c, to: easyIndex });
+      }
+      const combineda = htrMachines.concat(hmvMachines, scriptLanguage);
+      const scriptIndex = combineda.indexOf("Programming");
+      for (let d = scriptIndex + 1; d <= combineda.length - 1; d++) {
+        edges.push({ from: d, to: scriptIndex });
+      }
+
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {
+        layout: {
+          improvedLayout: true,
+          clusterThreshold: 10000,
+        },
+        nodes: {
+          shape: "dot",
+          font: {
+            size: 38,
+            color: "#ffffff",
+          },
+          borderWidth: 2,
+        },
+        edges: {
+          width: 3,
+          smooth: true,
+        },
+        interaction: {
+          hover: true,
+        },
+        physics: {
+          enabled: true,
+          barnesHut: {
+            theta: 0.5,
+            gravitationalConstant: -15000,
+            centralGravity: 0.3,
+            springLength: 350,
+            springConstant: 0.04,
+            damping: 0.44,
+            avoidOverlap: 1
+          },
+          repulsion: {
+            centralGravity: 0.2,
+            springLength: 200,
+            springConstant: 0.05,
+            nodeDistance: 400,
+            damping: 0.09
+          },
+          stabilization: {
+            enabled: true,
+            iterations: 400,
+            updateInterval: 10,
+            onlyDynamicEdges: false,
+            fit: true
+          }
+        },
+      };
+      network = new vis.Network(container, data, options);
+      network.startSimulation();
+      network.stabilize();
+    </script>
+  </body>
+</html>
+
